@@ -21,6 +21,8 @@ module.exports = Joi.object().keys({
         Joi.number().integer(),
         Joi.array().items(Joi.number().integer())
       ],
+      polygons: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
+      api_key: Joi.string(),
       importVenues: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
       importPostalcodes: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
       importConstituencies: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),

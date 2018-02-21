@@ -38,7 +38,7 @@
     "node-version-checker": "^2.0.0",
     "parallel-transform": "^1.1.0",
     "pelias-blacklist-stream": "^1.0.0",
-    "pelias-config": "^3.8.1",
+    "pelias-config": "git://github.com/venicegeo/pelias-config.git#polygon-wof-config",
     "pelias-dbclient": "^2.5.6",
     "pelias-logger": "^1.2.1",
     "pelias-model": "^5.5.2",
@@ -50,6 +50,7 @@
   "devDependencies": {
     "event-stream": "^4.0.0",
     "jshint": "^2.5.6",
+    "npm-check": "git://github.com/orangejulius/npm-check.git#disable-update-check",
     "pelias-mock-logger": "^1.1.0",
     "precommit-hook": "^3.0.0",
     "proxyquire": "^2.0.0",
