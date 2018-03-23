@@ -1,4 +1,3 @@
-'use strict';
 
 const child_process = require('child_process');
 const async = require('async');
@@ -30,7 +29,7 @@ function download(callback) {
     const csvFilename = bundle.replace(/-\d{8}T\d{6}-/, '-latest-') // support timestamped downloads
                               .replace('-bundle.tar.bz2', '.csv');
 
-    return 'curl https://whosonfirst.mapzen.com/bundles/' + bundle + ' | tar -xj --strip-components=1 --exclude=README.txt -C ' +
+    return 'curl https://dist.whosonfirst.org/bundles/' + bundle + ' | tar -xj --strip-components=1 --exclude=README.txt -C ' +
       directory + ' && mv ' + path.join(directory, csvFilename) + ' ' + path.join(directory, 'meta');
   }
 

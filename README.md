@@ -13,7 +13,7 @@ pelias-whosonfirst is a tool used for importing [Who's On First data](https://wh
 
 ## Requirements
 
-Node.js 4, 6, or 8 (the latest in the 4 series is currently recommended).
+Node.js 6, or 8 (the latest in the 8 series is currently recommended).
 
 ## Types
 
@@ -55,15 +55,14 @@ The following configuration options are supported by this importer.
 | key | required | default | description |
 | --- | --- | --- | --- |
 | `imports.whosonfirst.datapath` | yes | | full path to where Who's on First data is located (note: the included [downloader script](#downloading-the-data) will automatically place the WOF data here, and is the recommended way to obtain WOF data) |
-| `imports.whosonfirst.api_key` | no | | used by the filtered download script, must be set if using `imports.whosonfirst.importPlace` config option. Visit the [Mapzen Developers dashboard](https://mapzen.com/developers) to get a working api key |
 | `imports.whosonfirst.importPostalcodes` | no | false | set to `true` to include postalcodes in the data download and import process |
 | `imports.whosonfirst.importVenues` | no | false | set to `true` to include venues in the data download and import process |
-| `imports.whosonfirst.importPlace` | no | | set to a WOF id (number or string) indicating the region of interest, only data pertaining to that place shall be downloaded. Use the WOF [spelunker tool](https://whosonfirst.mapzen.com/spelunker/) search for an ID of a place. |
-| `imports.whosonfirst.missingFilesAreFatal` | no | false | set to `true` for missing files from [Who's on First bundles](https://whosonfirst.mapzen.com/bundles/) to stop the import process |
+| `imports.whosonfirst.importPlace` | no | | set to a WOF id (number or string) indicating the region of interest, only data pertaining to that place shall be downloaded. Use the WOF [spelunker tool](https://spelunker.whosonfirst.org/) search for an ID of a place. |
+| `imports.whosonfirst.missingFilesAreFatal` | no | false | set to `true` for missing files from [Who's on First bundles](https://dist.whosonfirst.org/bundles/) to stop the import process |
 
 ## Downloading the Data
 
-* The `download` script will download the required bundles and place the data into the datapath configured in [pelias-config](https://github.com/pelias/config) in the required directory layout.  
+* The `download` script will download the required bundles/sqlite databases and place the data into the datapath configured in [pelias-config](https://github.com/pelias/config) in the required directory layout.
 To install the required node module dependencies and run the download script:
 
 ```bash
@@ -109,6 +108,6 @@ This project exposes a number of node streams for dealing with Who's on First da
 - `loadJSON`: parallel stream that asynchronously loads GeoJSON files
 - `recordHasIdAndProperties`: rejects Who's on First records missing id or properties
 - `isActiveRecord`: rejects records that are superseded, deprecated, or otherwise inactive
-- `isNotNullIslandRelated`: rejects [Null Island](https://whosonfirst.mapzen.com/spelunker/id/1) and other records that intersect it (currently just postal codes at 0/0)
+- `isNotNullIslandRelated`: rejects [Null Island](https://spelunker.whosonfirst.org/id/1) and other records that intersect it (currently just postal codes at 0/0)
 - `recordHasName`: rejects records without names
 - `conformsTo`: filter Who's on First records on a predicate (see lodash's [conformsTo](https://lodash.com/docs/4.17.4#conformsTo) for more information)
