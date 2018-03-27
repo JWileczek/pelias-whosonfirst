@@ -10,7 +10,7 @@ const streamArray = require('stream-array');
 
 const maxInFlight = 4;
 
-const _defaultHost = 'https://whosonfirst.mapzen.com';
+const _defaultHost = 'https://dist.whosonfirst.org';
 
 /**
  * Download all records list in idsByPlacetype object to target directory.
