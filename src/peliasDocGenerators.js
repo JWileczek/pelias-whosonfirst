@@ -74,8 +74,8 @@ function setupDocument(record, hierarchy) {
   wofDoc.setCentroid({ lat: record.lat, lon: record.lon });
 
   //Only if coordinates are present
-  if (record.coordinates) {
-    wofDoc.setPolygon({coordinates: record.coordinates});
+  if (record.geometry) {
+    wofDoc.setPolygon(record.geometry);
   }
   // only set population if available
   if (record.population) {
