@@ -9,7 +9,7 @@
 
 ## Overview
 
-pelias-whosonfirst is a tool used for importing data from the [Who's On First](https://whosonfirst.org/) project from local files into a Pelias ElasticSearch store.
+pelias-whosonfirst is a tool used for importing [Who's On First data](https://dist.whosonfirst.org/) from local files into a Pelias ElasticSearch store.
 
 ## Requirements
 
