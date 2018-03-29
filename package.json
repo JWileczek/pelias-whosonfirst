@@ -39,10 +39,7 @@
     "klaw-sync": "^3.0.0",
     "lodash": "^4.5.1",
     "node-version-checker": "^2.0.0",
-
     "pelias-config": "git://github.com/venicegeo/pelias-config.git",
-
-    "pelias-config": "2.14.0",
     "pelias-dbclient": "2.4.0",
 
     "pelias-logger": "0.3.1",
