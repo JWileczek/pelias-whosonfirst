@@ -634,7 +634,18 @@ tape('create', function(test) {
         lat: 12.121212,
         lon: 21.212121,
         place_type: 'region',
-        coordinates: [[0,1], [1,0], [0.5,1]]
+        geometry: {
+          'type': 'Polygon',
+          'coordinates': [
+              [
+                  [100.0, 0.0],
+                  [101.0, 0.0],
+                  [101.0, 1.0],
+                  [100.0, 1.0],
+                  [100.0, 0.0]
+              ]
+          ]
+        }
       }
     };
 
@@ -648,7 +659,7 @@ tape('create', function(test) {
       new Document( 'whosonfirst', 'region', '1')
         .setName('default', 'record name')
         .setCentroid({ lat: 12.121212, lon: 21.212121 })
-        .setPolygon({'coordinates': wofRecords[1].coordinates})
+        .setPolygon(wofRecords[1].geometry)
         .addParent( 'region', 'record name', '1', 'record abbreviation')
 
     ];

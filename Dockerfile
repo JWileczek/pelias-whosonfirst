@@ -12,6 +12,20 @@ WORKDIR ${WORKDIR}
 # add code from local checkout
 ADD . ${WORKDIR}
 
+# install required utilities
+RUN apt-get update && \
+    apt-get install -y vim curl
+
+# install node 6.x
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    apt-get install -y nodejs
+
+# move original node and symlink
+RUN mv /usr/local/bin/node /usr/local/bin/node.original
+
+RUN ln -s /usr/bin/nodejs /usr/local/bin/node
+
+
 # install npm dependencies
 RUN npm install
 

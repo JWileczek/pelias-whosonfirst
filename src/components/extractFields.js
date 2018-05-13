@@ -91,11 +91,9 @@ function getHierarchies(id, properties) {
 
 }
 
-function getPolygonCoords(object){
-  if(_.get(object, 'geometry.coordinates')){
-    if(object.geometry.coordinates.length === 1 && object.geometry.coordinates[0][0].length > 1){
-      return object.geometry.coordinates[0][0];
-    }
+function getPolygonGeometry(object){
+  if(object.geometry.type === 'Polygon' || object.geometry.type === 'MultiPolygon'){
+    return object.geometry;
   }
 }
 
@@ -122,9 +120,9 @@ module.exports.create = function map_fields_stream() {
 
     //Check config for polygon flag
     if(config.imports.whosonfirst.polygons){
-      const coords = getPolygonCoords(json_object);
-      if(coords){
-        record.coordinates = coords;
+      const geometry = getPolygonGeometry(json_object);
+      if(geometry){
+        record.geometry = geometry;
       }
     }
     // use the QS altname if US county and available
