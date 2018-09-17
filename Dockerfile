@@ -31,3 +31,6 @@ RUN npm install
 
 # run tests
 RUN npm test
+
+# run as the pelias user
+USER pelias

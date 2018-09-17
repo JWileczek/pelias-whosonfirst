@@ -1,3 +1,8 @@
+>This repository is part of the [Pelias](https://github.com/pelias/pelias)
+>project. Pelias is an open-source, open-data geocoder originally sponsored by
+>[Mapzen](https://www.mapzen.com/). Our official user documentation is
+>[here](https://github.com/pelias/documentation).
+
 # Pelias Who's on First Data Importer
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/pelias/whosonfirst.svg)](https://greenkeeper.io/)
@@ -13,7 +18,7 @@ pelias-whosonfirst is a tool used for importing [Who's On First data](https://di
 
 ## Requirements
 
-Node.js 6, or 8 (the latest in the 8 series is currently recommended).
+Node.js 6 or newer (the latest in the 8 series is currently recommended).
 
 ## Types
 
