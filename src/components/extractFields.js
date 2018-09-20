@@ -1,6 +1,8 @@
 const through2 = require('through2');
 const _ = require('lodash');
 const config = require( 'pelias-config' ).generate(require('../../schema'));
+const simplify = require('simplify-js');
+const map = require('through2-map');
 // hierarchy in importance-descending order of population fields
 const population_hierarchy = [
   'mz:population',
@@ -95,8 +97,42 @@ function getHierarchies(id, properties) {
 
 function getPolygonGeometry(object){
   if(object.geometry.type === 'Polygon' || object.geometry.type === 'MultiPolygon'){
+    if(config.imports.whosonfirst.simplifyPolygons) {
+      return simplifyGeometry(object.geometry);
+    }
     return object.geometry;
   }
+}
+
+function simplifyGeometry(geometry) {
+  if( geometry ) {
+    if ('Polygon' === geometry.type) {
+      var coordinates = geometry.coordinates[0];
+      geometry.coordinates[0] = simplifyCoords(coordinates);
+    }
+    else if ('MultiPolygon' === geometry.type) {
+      var polygons = geometry.coordinates;
+      polygons.forEach(function simplify(coordinates, idx) {
+        polygons[idx][0] = simplifyCoords(coordinates[0]);
+      });
+    }
+  }
+
+  return geometry;
+
+}
+
+function simplifyCoords( coords ) {
+  var pts = coords.map(function mapToSimplifyFmt(pt) {
+    return {x: pt[0], y: pt[1]};
+  });
+
+  var simplificationRate =  config.imports.whosonfirst.simplificationRate || 0.0003;
+  var simplified = simplify(pts, simplificationRate, true);
+
+  return simplified.map(function mapToGeoJsonFmt(pt) {
+    return [pt.x, pt.y];
+  });
 }
 
 /*
@@ -120,8 +156,11 @@ module.exports.create = function map_fields_stream() {
       hierarchies: getHierarchies(json_object.id, json_object.properties),
     };
 
+    //Estimation of doc size
+
     //Check config for polygon flag
     if(config.imports.whosonfirst.polygons){
+      //Estimation vertcount * coordSize
       const geometry = getPolygonGeometry(json_object);
       if(geometry){
         record.geometry = geometry;

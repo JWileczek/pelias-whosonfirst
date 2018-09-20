@@ -46,6 +46,7 @@
     "pelias-parallel-stream": "0.1.0",
     "request-rate-limiter": "^1.0.2",
     "stream-array": "^1.1.2",
+    "simplify-js": "^1.2.1",
     "through2": "^3.0.0",
     "through2-filter": "^3.0.0",
     "through2-map": "^3.0.0",
