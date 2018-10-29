@@ -17,11 +17,13 @@ module.exports = Joi.object().keys({
     whosonfirst: Joi.object().keys({
       dataHost: Joi.string(),
       datapath: Joi.string(),
+      polygons: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
+      simplifyPolygons: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
+      simplificationRate: Joi.number().default(0.0003),
       importPlace: [
         Joi.number().integer(),
         Joi.array().items(Joi.number().integer())
       ],
-      polygons: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
       api_key: Joi.string(),
       importVenues: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
       importPostalcodes: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
