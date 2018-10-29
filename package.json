@@ -39,7 +39,7 @@
     "parallel-transform": "^1.1.0",
     "pelias-blacklist-stream": "^1.0.0",
     "pelias-config": "git://github.com/JWileczek/pelias-config.git#polygon-simp",
-    "pelias-dbclient": "^2.5.6",
+    "pelias-dbclient": "git://github.com/JWileczek/dbclient.git#config-control",
     "pelias-logger": "^1.2.1",
     "pelias-model": "^5.5.2",
     "simplify-js": "^1.2.1",
