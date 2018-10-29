@@ -19,6 +19,7 @@ module.exports = Joi.object().keys({
       datapath: Joi.string(),
       polygons: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
       simplifyPolygons: Joi.boolean().default(false).truthy('yes').falsy('no').insensitive(true),
+      simplificationRate: Joi.number().default(0.0003),
       importPlace: [
         Joi.number().integer(),
         Joi.array().items(Joi.number().integer())

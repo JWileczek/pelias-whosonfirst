@@ -125,7 +125,7 @@ function simplifyCoords( coords ) {
     return {x: pt[0], y: pt[1]};
   });
 
-  var simplificationRate = 0.0003;
+  var simplificationRate =  config.imports.whosonfirst.simplificationRate || 0.0003;
   var simplified = simplify(pts, simplificationRate, true);
 
   return simplified.map(function mapToGeoJsonFmt(pt) {
