@@ -1,4 +1,3 @@
-
 const child_process = require('child_process');
 const async = require('async');
 const fs = require('fs-extra');
@@ -9,15 +8,19 @@ const path = require('path');
 const bundles = require('../src/bundleList');
 const config = require( 'pelias-config' ).generate(require('../schema'));
 
+const wofDataHost = config.get('imports.whosonfirst.dataHost') || 'https://dist.whosonfirst.org';
+
 function download(callback) {
   //ensure required directory structure exists
   fs.ensureDirSync(path.join(config.imports.whosonfirst.datapath, 'meta'));
 
   // download one bundle for every other CPU (tar and bzip2 can both max out one core)
-  // (but not more than 4, to keep things from getting too intense)
+  // (the maximum is configurable, to keep things from getting too intense, and defaults to 4)
   //lower this number to make the downloader more CPU friendly
   //raise this number to (possibly) make it faster
-  const simultaneousDownloads = Math.max(4, Math.min(1, os.cpus().length / 2));
+  const maxSimultaneousDownloads = config.get('imports.whosonfirst.maxDownloads') || 4;
+  const cpuCount = os.cpus().length;
+  const simultaneousDownloads = Math.max(maxSimultaneousDownloads, Math.min(1, cpuCount / 2));
 
   // generate a shell command that does the following:
   // 1.) use curl to download the bundle, piping directly to tar (this avoids the
@@ -27,10 +30,10 @@ function download(callback) {
   // 3.) move the meta file to the meta files directory
   function generateCommand(bundle, directory) {
     const csvFilename = bundle.replace(/-\d{8}T\d{6}-/, '-latest-') // support timestamped downloads
-                              .replace('-bundle.tar.bz2', '.csv');
+                              .replace('.tar.bz2', '.csv');
 
-    return 'curl https://dist.whosonfirst.org/bundles/' + bundle + ' | tar -xj --strip-components=1 --exclude=README.txt -C ' +
-      directory + ' && mv ' + path.join(directory, csvFilename) + ' ' + path.join(directory, 'meta');
+    return `curl ${wofDataHost}/bundles/${bundle} | tar -xj --strip-components=1 --exclude=README.txt -C ` +
+      `${directory} && mv ${path.join(directory, csvFilename)} ${path.join(directory, 'meta')}`;
   }
 
   bundles.generateBundleList((err, bundlesToDownload) => {

@@ -1,20 +1,18 @@
 {
   "name": "pelias-whosonfirst",
-  "version": "0.0.0-semantic-release",
+  "version": "0.0.0-development",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "description": "Importer for Who's on First",
   "main": "index.js",
   "scripts": {
-    "start": "node import.js",
-    "download": "node ./utils/download_data.js",
-    "test": "node test/test | tap-dot",
+    "start": "./bin/start",
+    "download": "./bin/download",
+    "test": "./bin/units",
     "lint": "jshint .",
     "validate": "npm ls",
-    "travis": "npm run check-dependencies && npm run test",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "check-dependencies": "node_modules/.bin/npm-check --production"
+    "travis": "npm run test"
   },
   "repository": {
     "type": "git",
@@ -30,44 +28,46 @@
     "async": "^2.5.0",
     "better-sqlite3": "^4.1.0",
     "combined-stream": "^1.0.5",
-    "csv-stream": "^0.1.3",
-    "csv-string": "^3.1.2",
+    "csv-stream": "^0.2.0",
     "download-file-sync": "^1.0.4",
-    "fs-extra": "^5.0.0",
-    "iso3166-1": "^0.3.0",
-    "joi": "^12.0.0",
-    "klaw-sync": "^3.0.0",
+    "fs-extra": "^7.0.0",
+    "iso3166-1": "^0.4.0",
+    "joi": "^14.0.0",
+    "klaw-sync": "^6.0.0",
     "lodash": "^4.5.1",
     "node-version-checker": "^2.0.0",
+    "parallel-transform": "^1.1.0",
+    "pelias-blacklist-stream": "^1.0.0",
     "pelias-config": "git://github.com/venicegeo/pelias-config.git",
-    "pelias-dbclient": "2.4.0",
+    "pelias-dbclient": "^2.5.6",
 
-    "pelias-logger": "0.3.1",
-    "pelias-model": "5.3.2",
+    "pelias-logger": "^1.2.1",
+    "pelias-model": "^5.5.2",
     "pelias-parallel-stream": "0.1.0",
     "request-rate-limiter": "^1.0.2",
     "stream-array": "^1.1.2",
-    "through2": "^2.0.0",
-    "through2-filter": "^2.0.0",
+    "through2": "^3.0.0",
+    "through2-filter": "^3.0.0",
     "through2-map": "^3.0.0",
     "through2-sink": "^1.0.0"
   },
   "devDependencies": {
-    "event-stream": "^3.3.2",
+    "event-stream": "^4.0.0",
     "jshint": "^2.5.6",
-    "npm-check": "git://github.com/orangejulius/npm-check.git#disable-update-check",
     "pelias-mock-logger": "^1.1.0",
     "precommit-hook": "^3.0.0",
-    "proxyquire": "^1.7.11",
-    "semantic-release": "^8.0.0",
-    "tap-dot": "^1.0.0",
+    "proxyquire": "^2.0.0",
+    "tap-dot": "^2.0.0",
     "tape": "^4.2.2",
-    "temp": "^0.8.3"
+    "temp": "^0.9.0"
   },
   "pre-commit": [
     "lint",
     "validate",
-    "test",
-    "check-dependencies"
-  ]
+    "test"
+  ],
+  "release": {
+    "branch": "master",
+    "success": []
+  }
 }

@@ -1,19 +1,21 @@
+>This repository is part of the [Pelias](https://github.com/pelias/pelias)
+>project. Pelias is an open-source, open-data geocoder originally sponsored by
+>[Mapzen](https://www.mapzen.com/). Our official user documentation is
+>[here](https://github.com/pelias/documentation).
+
 # Pelias Who's on First Data Importer
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/pelias/whosonfirst.svg)](https://greenkeeper.io/)
 
-This repository is part of the [Pelias](https://github.com/pelias/pelias)
-project. Pelias is an open-source, open-data geocoder built by
-[Mapzen](https://www.mapzen.com/) that also powers [Mapzen Search](https://mapzen.com/projects/search). Our
-official user documentation is [here](https://mapzen.com/documentation/search/).
-
 ## Overview
 
-pelias-whosonfirst is a tool used for importing [Who's On First data](https://dist.whosonfirst.org/) from local files into a Pelias ElasticSearch store.
+pelias-whosonfirst is a tool used for importing data from the [Who's On First](https://whosonfirst.org/) project from local files into a Pelias ElasticSearch store.
 
 ## Requirements
 
-Node.js 6, or 8 (the latest in the 8 series is currently recommended).
+Node.js is required.
+
+See [Pelias software requirements](https://github.com/pelias/documentation/blob/master/requirements.md) for required and recommended versions.
 
 ## Types
 
@@ -59,6 +61,8 @@ The following configuration options are supported by this importer.
 | `imports.whosonfirst.importVenues` | no | false | set to `true` to include venues in the data download and import process |
 | `imports.whosonfirst.importPlace` | no | | set to a WOF id (number or string) indicating the region of interest, only data pertaining to that place shall be downloaded. Use the WOF [spelunker tool](https://spelunker.whosonfirst.org) search for an ID of a place. |
 | `imports.whosonfirst.missingFilesAreFatal` | no | false | set to `true` for missing files from [Who's on First bundles](https://dist.whosonfirst.org/bundles/) to stop the import process |
+| `imports.whosonfirst.maxDownloads` | no | 4 | the maximum number of files to download simultaneously. Higher values can be faster, but can also cause donwload errors |
+| `imports.whosonfirst.dataHost` | no | `https://dist.whosonfirst.org/` | The location to download Who's on First data from. Changing this can be useful to use custom data, pin data to a specific date, etc |
 
 ## Downloading the Data
 
@@ -79,9 +83,6 @@ it is recommended that the `importPlace` config parameter is used to limit the d
 that are parents or descendants of the specified place. See the configuration details in the above section of this document.
 We currently only support a single ID at a time. If multiple places need to be downloaded, the script can be executed multiple times;
 one for each desired place.
-
-**Warning**: It is recommended to only use the download filtering option for places more granular than `country`.
-The filtering script is intended for small areas and so has not been tested fully for large ones.  
 
 **Warning**: Who's on First data is _big_. Just the hierarchy data is tens of GB, and the full dataset is over 100GB on disk.
 Additionally, Who's on First uses one file per record. In addition to lots of disk space,

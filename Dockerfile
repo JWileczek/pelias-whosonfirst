@@ -9,9 +9,14 @@ RUN apt-get update && apt-get install -y autoconf automake libtool pkg-config py
 ENV WORKDIR /code/pelias/whosonfirst
 WORKDIR ${WORKDIR}
 
+# copy package.json first to prevent npm install being rerun when only code changes
+COPY ./package.json ${WORKDIR}
+RUN npm install
+
 # add code from local checkout
 ADD . ${WORKDIR}
 
+<<<<<<< .merge_file_yxPRde
 # install required utilities
 RUN apt-get update && \
     apt-get install -y vim curl
@@ -29,5 +34,10 @@ RUN ln -s /usr/bin/nodejs /usr/local/bin/node
 # install npm dependencies
 RUN npm install
 
+=======
+>>>>>>> .merge_file_KCqTjC
 # run tests
 RUN npm test
+
+# run as the pelias user
+USER pelias

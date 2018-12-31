@@ -1,8 +1,8 @@
-
 const tape = require('tape');
 const proxyquire = require('proxyquire');
 const fs = require('fs-extra');
 const _ = require('lodash');
+const peliasConfig = require('pelias-config');
 
 proxyquire.noPreserveCache();
 proxyquire.noCallThru();
@@ -38,7 +38,7 @@ tape('bundlesList tests', (test) => {
 
     const config = {
       generate: () => {
-        return {
+        return peliasConfig.generateCustom({
           imports: {
             whosonfirst: {
               datapath: 'foo',
@@ -46,7 +46,7 @@ tape('bundlesList tests', (test) => {
               importPostalcodes: true
             }
           }
-        };
+        });
       }
     };
 
@@ -70,7 +70,7 @@ tape('bundlesList tests', (test) => {
   test.test('region venue bundles', (t) => {
     const config = {
       generate: () => {
-        return {
+        return peliasConfig.generateCustom({
           imports: {
             whosonfirst: {
               datapath: 'foo',
@@ -78,14 +78,14 @@ tape('bundlesList tests', (test) => {
               importPostalcodes: true
             }
           }
-        };
+        });
       }
     };
 
     const bundles = proxyquire('../src/bundleList', { 'pelias-config': config });
 
     bundles.generateBundleList((err, bundlesList) => {
-      t.assert(bundlesList.includes('wof-venue-us-ca-latest-bundle.tar.bz2'), 'venue bundle for regions are included');
+      t.assert(bundlesList.includes('whosonfirst-data-venue-us-ca-latest.tar.bz2'), 'venue bundle for regions are included');
       fs.removeSync('foo');
       t.end();
     });
@@ -95,13 +95,13 @@ tape('bundlesList tests', (test) => {
 
     const config = {
       generate: () => {
-        return {
+        return peliasConfig.generateCustom({
           imports: {
             whosonfirst: {
               datapath: 'foo'
             }
           }
-        };
+        });
       }
     };
 
@@ -135,7 +135,7 @@ tape('bundlesList tests', (test) => {
 
     const config = {
       generate: () => {
-        return {
+        return peliasConfig.generateCustom({
           imports: {
             whosonfirst: {
               datapath: 'foo',
@@ -143,7 +143,7 @@ tape('bundlesList tests', (test) => {
               importPostalcodes: true
             }
           }
-        };
+        });
       }
     };
 
